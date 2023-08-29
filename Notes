@@ -1,0 +1,27 @@
+* An example of a struct that you want its options defined dynamically
+
+type ServerOptions struct {
+	timeout time.Duration
+	port    string
+	network string
+	tls     bool
+}
+
+
+
+* Define a function type that accepts a pointer to your struct
+
+type Option func(*ServerOptions)
+
+
+
+* Define functions for each option configurable that modify your struct.
+* Each of the Option functions act as “option constructors” and return another function. Returned func takes a pointer to option struct as an argument, and returns nothing. 
+* We now see the returned func with same signature as Option func, modifies *ServerOptions using the Decorator pattern.
+
+func WithTimeout(t time.Duration) func(s *ServerOptions) {
+	return func(s *ServerOptions) {
+		s.timeout = t
+	}
+}
+
