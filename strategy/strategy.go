@@ -20,6 +20,7 @@ func (m Mysqldb) conn() {
 	fmt.Println("Mysql connection")
 }
 
+// Gateway
 type Gateway struct {
 	db Connection
 }
